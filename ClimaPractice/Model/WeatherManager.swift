@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager : WeatherManger,  weather : WeatherModel)
@@ -16,6 +17,7 @@ protocol WeatherManagerDelegate {
 struct WeatherManger {
     
     let countryLists = CountryList()
+    
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=6505aed31265cb3ac10916740f23bc1f&metric"
     
@@ -32,6 +34,14 @@ struct WeatherManger {
         } else {
             print("\(countryName)을 찾을 수 없음")
         }
+    }
+    
+    //위도와 경도를 입력한다
+    func fetchWeather(latitude : CLLocationDegrees, longitude : CLLocationDegrees) {
+        let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
+        performRequest(with: urlString)
+        print(latitude)
+        print(longitude)
     }
     
     //네트워킹을 하기
@@ -66,6 +76,7 @@ struct WeatherManger {
             let id = decodedData.weather[0].id
             let temp = decodedData.main.temp - 273.15
             let name = decodedData.sys.country
+            print(id)
             
             let weather = WeatherModel(conditionId: id, countryName: name, temperature: temp)
             return weather
