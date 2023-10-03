@@ -19,7 +19,7 @@ struct WeatherManger {
     let countryLists = CountryList()
     
     
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=6505aed31265cb3ac10916740f23bc1f&metric"
+    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid= "
     
     var delegate : WeatherManagerDelegate?
     
